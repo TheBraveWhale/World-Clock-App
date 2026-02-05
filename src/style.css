@@ -14,6 +14,11 @@ h1 {
   font-size: 70px;
 }
 
+a {
+  color: rgb(7, 3, 42);
+  text-decoration: none;
+}
+
 select {
   background-color: rgb(204, 236, 255) 100%;
   margin: 0 auto;
