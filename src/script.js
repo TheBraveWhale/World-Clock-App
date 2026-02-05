@@ -1,3 +1,6 @@
+let selectedCityTimezone = null;
+let selectedCityElement = null;
+
 function updateParis() {
   let parisElement = document.querySelector("#paris");
   let parisDate = parisElement.querySelector(".date");
@@ -34,8 +37,22 @@ function updateBrisbane() {
   );
 }
 
+function updateSelectedCity() {
+  if (selectedCityTimezone === null || selectedCityElement === null) {
+    return;
+  }
+  let currentTime = moment().tz(selectedCityTimezone);
+
+  selectedCityElement.querySelector(".date").innerHTML =
+    currentTime.format("MMMM Do YYYY");
+  selectedCityElement.querySelector(".time").innerHTML = currentTime.format(
+    "hh:mm:ss [<small>]A[</small>]",
+  );
+}
+
 function updateCity(event) {
   let cityTimeZone = event.target.value;
+  if (cityTimeZone === null) return;
   if (cityTimeZone === "current") {
     cityTimeZone = moment.tz.guess();
   }
@@ -51,6 +68,11 @@ function updateCity(event) {
           </div>
           <div class="time">${cityTime.format("hh:mm:ss")}<small>${cityTime.format("A")}</small></div>
         </div>`;
+
+  selectedCityTimezone = cityTimeZone;
+  selectedCityElement = citiesBlock.querySelector(".block");
+
+  updateSelectedCity();
 }
 
 updateBrisbane();
@@ -63,3 +85,5 @@ setInterval(updateTokyo, 1000);
 
 let citiesSelect = document.querySelector("#countries");
 citiesSelect.addEventListener("change", updateCity);
+
+setInterval(updateSelectedCity, 1000);
