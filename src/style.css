@@ -44,12 +44,20 @@ footer {
 }
 
 .block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 30px;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
 }
 
 .city,
 .date {
-  display:;
+  display: flex;
   justify-content: left;
 }
 
@@ -63,10 +71,7 @@ footer {
 }
 
 .time {
-  position: relative;
-  top: -50px;
-  right: -90%;
-  font-size: 20px;
+  font-size: 40px;
 }
 
 .line {
