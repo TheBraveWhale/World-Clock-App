@@ -34,6 +34,23 @@ function updateBrisbane() {
   );
 }
 
+function updateCity(event) {
+  let cityTimeZone = event.target.value;
+  let cityName = cityTimeZone.replace("_", " ").split("/")[1];
+  let cityTime = moment().tz(cityTimeZone);
+  let citiesBlock = document.querySelector("#cities");
+
+  citiesBlock.innerHTML = `<div id="cities">
+        <div class="block" id="${cityName.replace(" ", "")}">
+          <div class="left">
+            <div class="${cityName.replace(" ", "")} city">${cityName}</div>
+            <div class="date">${cityTime.format("MMMM do YYYY")}</div>
+          </div>
+          <div class="time">${cityTime.format("hh:mm:ss")}<small>${cityTime.format("A")}</small></div>
+        </div>`;
+  setInterval(updateCity, 1000);
+}
+
 updateBrisbane();
 updateParis();
 updateTokyo();
@@ -41,3 +58,6 @@ updateTokyo();
 setInterval(updateBrisbane, 1000);
 setInterval(updateParis, 1000);
 setInterval(updateTokyo, 1000);
+
+let citiesSelect = document.querySelector("#countries");
+citiesSelect.addEventListener("change", updateCity);
